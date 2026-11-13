@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 
-const API_BASE_URL = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
+const API_BASE_URL = (
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.PROD ? "https://api-creator.onrender.com" : "")
+).replace(/\/$/, "");
 
 const emptyForm = {
   name: "",
