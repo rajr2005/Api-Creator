@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: mockforge-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/mock-endpoints
+    envVars:
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false

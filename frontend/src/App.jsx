@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+const API_BASE_URL = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
+
 const emptyForm = {
   name: "",
   method: "GET",
@@ -26,7 +28,7 @@ function App() {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch("/api/mock-endpoints");
+      const response = await fetch(`${API_BASE_URL}/api/mock-endpoints`);
       if (!response.ok) {
         throw new Error("Unable to load mock endpoints.");
       }
@@ -71,7 +73,7 @@ function App() {
     setError("");
 
     try {
-      const response = await fetch("/api/mock-endpoints", {
+      const response = await fetch(`${API_BASE_URL}/api/mock-endpoints`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -103,7 +105,7 @@ function App() {
   async function deleteEndpoint(id) {
     setError("");
     try {
-      const response = await fetch(`/api/mock-endpoints/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/mock-endpoints/${id}`, {
         method: "DELETE"
       });
       if (!response.ok) {
@@ -125,7 +127,7 @@ function App() {
     setError("");
 
     try {
-      const response = await fetch(`/mock${endpoint.path}`, {
+      const response = await fetch(`${API_BASE_URL}/mock${endpoint.path}`, {
         method: endpoint.method
       });
       const body = await response.text();

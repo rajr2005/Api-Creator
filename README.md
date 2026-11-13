@@ -46,3 +46,22 @@ Then call:
 ```bash
 curl http://localhost:8080/mock/users
 ```
+
+## Deploy
+
+### Backend on Render
+
+1. Create a new Render Web Service from this repository and use the repository root as the service directory. Render will use the included `Dockerfile` (also described in `render.yaml`).
+2. Set `CORS_ALLOWED_ORIGINS` to the full Vercel site origin, for example `https://mockforge.vercel.app`. For multiple frontend origins, separate them with commas.
+3. After deployment, copy the backend URL, such as `https://mockforge-api.onrender.com`.
+
+The service reads Render's `PORT` environment variable. Its health check uses `GET /api/mock-endpoints`.
+Mock endpoint definitions are currently stored in memory, so they reset whenever the backend restarts or redeploys. Add persistent storage before relying on this deployment for data you need to keep.
+
+### Frontend on Vercel
+
+1. Import the repository into Vercel and set the Root Directory to `frontend`.
+2. Set the environment variable `VITE_API_URL` to the Render backend URL, without a trailing slash, for example `https://mockforge-api.onrender.com`.
+3. Deploy or redeploy after setting the variable.
+
+The frontend sends API management and mock requests directly to that backend. For local development, leave `VITE_API_URL` unset to use the Vite proxy.
