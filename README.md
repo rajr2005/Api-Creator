@@ -61,7 +61,7 @@ Mock endpoint definitions are currently stored in memory, so they reset whenever
 ### Frontend on Vercel
 
 1. Import the repository into Vercel and set the Root Directory to `frontend`.
-2. The production build uses `VITE_API_URL` from `frontend/.env.production`. It is set to `https://api-creator.onrender.com`; change it there if your backend URL changes. You can instead set `VITE_API_URL` in Vercel's project settings to override it.
-3. Deploy or redeploy after setting or changing the variable.
+2. The included Vercel rewrites forward `/api/*` and `/mock/*` requests to `https://api-creator.onrender.com`. Update those destinations in `frontend/vercel.json` if your backend URL changes.
+3. Deploy or redeploy. Leave `VITE_API_URL` unset so browser requests use the same Vercel origin and avoid cross-origin CORS requests.
 
-The frontend sends API management and mock requests directly to that backend. For local development, leave `VITE_API_URL` unset to use the Vite proxy.
+For local development, leave `VITE_API_URL` unset to use the Vite proxy.
